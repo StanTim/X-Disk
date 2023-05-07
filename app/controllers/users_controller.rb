@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # GET /users
-  def index
-    @users = User.all
-  end
+  before_action :set_current_user, except: [:show]
+  before_action :authenticate_user!
 
   # GET /users/1
   def show
@@ -21,7 +17,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    @user = User.new
 
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
@@ -42,17 +38,16 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    redirect_to root_path, notice: 'User was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.fetch(:user, {})
-    end
+  def set_current_user
+    @user = current_user
+  end
+
+  def user_params
+    params.permit(:user_name, :email)
+  end
 end
