@@ -11,7 +11,7 @@ class User < ApplicationRecord
             length: { maximum: 15 },
             presence: true
 
-  validates_format_of :user_name, with: /\A[a-z0-9]*\z/,
+  validates_format_of :user_name, with: /\A[a-zA-Z0-9_]{2,15}\Z/ ,
                       message: 'User name must be Alphanumeric',
                       multiline: true
 
