@@ -32,4 +32,10 @@ class User < ApplicationRecord
                                 including uppercase letters,
                                 numbers and special character'
 
+  validates :files,
+            blob:
+              { content_type: PERMITTED_EXTENTIONS, massage: "support only: #{PERMITTED_EXTENTIONS}",
+                size_range: 0..(MAX_FILE_SIZE),
+                message: "is too large, maximum #{MAX_FILE_SIZE}" }
+
 end
