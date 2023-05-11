@@ -1,6 +1,16 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  has_many_attached :files
+
+  #set maximum available disk space in megabytes (10Mb)
+  DISK_LIMIT = 10.megabytes.freeze
+
+  #set maximum maximum file size in megabytes (10Mb)
+  MAX_FILE_SIZE = 4.megabytes.freeze
+
+  #set available extentions
+  PERMITTED_EXTENTIONS = %w[zip, xlsx, docx].freeze
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
