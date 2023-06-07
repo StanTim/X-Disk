@@ -1,5 +1,31 @@
 <p id="notice"><%= notice %></p>
+
+<%= render partial: 'partials/form_errors',
+           locals: { model: @user } %>
+
 <% if user_signed_in? %>
+
+  <h3><%= @user.user_name %></h3>
+  <h3> Disk free space:<%= number_to_human_size(show_disk_space,
+                                                precision: 3,
+                                                separator: ',')
+  %></h3>
+
+  <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
+
+  <%= render 'upload', user: @user %>
+
+  <% if @user.disk.present? %>
+    <% @user.disk.files.blobs.each do |file| %>
+      <ul>
+        <%= file.filename %>
+        <%= number_to_human_size(file.byte_size) %>
+        <%= button_to 'delete', delete_files_disk_path(file),
+                      method: :delete,
+                      data: { confirm: "delete file #{file.filename} from disk?" } %>
+      </ul>
+    <% end %>
+  <% end %>
 
   <%= link_to 'Edit', edit_user_registration_path(@user) %> |
   <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>

@@ -1,15 +1,6 @@
 class User < ApplicationRecord
 
-  has_many_attached :files
-
-  #set maximum available disk space in megabytes (10Mb)
-  DISK_LIMIT = 10.megabytes.freeze
-
-  #set maximum maximum file size in megabytes (10Mb)
-  MAX_FILE_SIZE = 4.megabytes.freeze
-
-  #set available extentions
-  PERMITTED_EXTENTIONS = %w[zip, xlsx, docx].freeze
+  has_one :disk
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -21,6 +12,7 @@ class User < ApplicationRecord
             length: { maximum: 15 },
             presence: true
 
+
   validates_format_of :user_name, with: /\A[a-zA-Z0-9_]{2,15}\Z/,
                       message: "User name must be Alphanumeric",
                       multiline: true
@@ -31,11 +23,5 @@ class User < ApplicationRecord
                       message: 'Password should have more than 8 and smolder 30 characters,
                                 including uppercase letters,
                                 numbers and special character'
-
-  validates :files,
-            blob:
-              { content_type: PERMITTED_EXTENTIONS, massage: "support only: #{PERMITTED_EXTENTIONS}",
-                size_range: 0..(MAX_FILE_SIZE),
-                message: "is too large, maximum #{MAX_FILE_SIZE}" }
 
 end

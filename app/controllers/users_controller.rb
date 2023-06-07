@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
-  before_action :set_current_user, except: [:show]
+  before_action :set_current_user, except: [:show, :create]
   before_action :authenticate_user!
 
-  def new
-    @user = User.new
+  def show
+    @user = User.find(current_user.id)
+    @disk = Disk.find_by(params[@user.id])
   end
 
-
   def create
-    @user = User.new
+    @user = User.new(user_params)
 
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
@@ -19,9 +19,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: 'user was successfully updated.'
     else
-      render 'devise/registration/edit'
+      render :show
     end
   end
 
@@ -33,10 +33,11 @@ class UsersController < ApplicationController
   private
 
   def set_current_user
+    # @user = User.find(params[:id])
     @user = current_user
   end
 
   def user_params
-    params.permit(:user_name, :email)
+    params.require(:user).permit(:user_name, :email)
   end
 end
