@@ -1,0 +1,5 @@
+class AddUserToDisk < ActiveRecord::Migration[6.1]
+  def change
+    add_reference :disks, :user, null: false, foreign_key: true
+  end
+end
