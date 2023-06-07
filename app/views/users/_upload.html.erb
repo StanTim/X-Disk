@@ -1,0 +1,28 @@
+<h1></h1>
+<p></p>
+<div>
+  <%#= form_with(model: @user.disk, local: true) do |f| %>
+    <%= form_for @disk, url: upload_files_disk_path(@disk) do |f| %>
+    </div>
+
+
+    <div class="field">
+      <ul>
+        <%= f.label :files %><br/>
+        <%= f.file_field :files,
+                         placeholder: 'Upload files',
+                         multiple: true,
+                         accept: 'application/zip,
+                         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                          application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        %>
+        <div class='actions'>
+
+          <%= f.submit 'upload',
+                       method: :patch,
+                       title: 'upload files' %><br/>
+        </div>
+      </ul>
+    </div>
+
+  <% end %>
