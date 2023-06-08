@@ -18,7 +18,7 @@
   <% if @user.disk.present? %>
     <% @user.disk.files.blobs.each do |file| %>
       <ul>
-        <%= file.filename %>
+        <%= file_name_without_ext(file) %>
         <%= number_to_human_size(file.byte_size) %>
         <%= button_to 'delete', delete_files_disk_path(file),
                       method: :delete,

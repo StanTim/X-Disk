@@ -8,4 +8,9 @@ module UsersHelper
     end
   end
 
+  def file_name_without_ext(file)
+    filename = file.filename.to_s
+    File.basename(filename, File.extname(filename))
+  end
+
 end
