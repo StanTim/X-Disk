@@ -4,31 +4,62 @@
            locals: { model: @user } %>
 
 <% if user_signed_in? %>
+  <div id="main-content" class="file_manager">
+    <div class="container">
+      <div class="row clearfix">
+        <h3><%= @user.user_name %></h3>
 
-  <h3><%= @user.user_name %></h3>
-  <h3> Disk free space:<%= number_to_human_size(show_disk_space,
-                                                precision: 3,
-                                                separator: ',')
-  %></h3>
+        <%= link_to 'Edit', edit_user_registration_path(@user) %> |
+        <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
+        <h3> Disk free space:<%= number_to_human_size(show_disk_space,
+                                                      precision: 3,
+                                                      separator: ',')
+        %></h3>
 
-  <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
+        <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
 
-  <%= render 'upload', user: @user %>
+        <%= render 'upload', user: @user %>
 
-  <% if @user.disk.present? %>
-    <% @user.disk.files.blobs.each do |file| %>
-      <ul>
-        <%= file_name_without_ext(file) %>
-        <%= number_to_human_size(file.byte_size) %>
-        <%= button_to 'delete', delete_files_disk_path(file),
-                      method: :delete,
-                      data: { confirm: "delete file #{file.filename} from disk?" } %>
-      </ul>
-    <% end %>
-  <% end %>
+        <% if @user.disk.present? %>
+          <% @user.disk.files.blobs.each do |file| %>
 
-  <%= link_to 'Edit', edit_user_registration_path(@user) %> |
-  <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+              <ul>
+                <div class="card">
+                  <div class="file">
+
+                    <a href="javascript:void(0);">
+                      <div class="hover">
+
+
+
+                            <%= button_to 'delete', delete_files_disk_path(file),
+                                          method: :delete,
+                                          data: { confirm: "delete file #{file.filename} from disk?" },
+                                          class: "button btn btn-icon btn-danger fa fa-trash" %>
+<!--                        <button type="">-->
+<!--                          <i class="">-->
+<!--                          </i>-->
+<!--                        </button>-->
+                      </div>
+                      <div class="icon">
+                        <i class="fa fa-file text-info"></i>
+                      </div>
+                      <div class="file-name">
+                        <p class="m-b-5 text-muted"><%= file_name_without_ext(file) %></p>
+                        <small><%= number_to_human_size(file.byte_size) %>
+                          <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
+</div>
+</div>
 <% else %>
   <%= render 'form', user: @user %>
 <% end %>
+</div>
