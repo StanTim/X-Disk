@@ -4,61 +4,176 @@
            locals: { model: @user } %>
 
 <% if user_signed_in? %>
-  <div id="main-content" class="file_manager">
-    <div class="container">
-      <div class="row clearfix">
-        <h3><%= @user.user_name %></h3>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-dark-outline tabs-panel">
+        <div class="panel-heading">
+          <ul class="nav nav-tabs pull-left type-document">
+            </a></li>
+          </ul>
+          <div class="clear"></div>
+        </div>
+        <div class="panel-body tab-content">
+          <div class="tab-pane active documents-panel">
+            <div class="clear"></div>
+            <div class="v-spacing-xs"></div>
+            <h4 class="no-margin-top"> <%= @user.user_name %></h4>
+            <ul class="folders list-unstyled">
+              <li>
+                <a href="#">
+                  <i class="fa fa-folder"></i> Web projects
+                </a>
+              </li>
+            </ul>
+            <div class="v-spacing-xs"></div>
+            <a class="btn btn-block btn-success"> <i class="fa fa-plus"> </i> Upload</a>
+          </div>
+          <div class="tab-pane images-panel">
+            <h4 class="no-margin-top"> Folders</h4>
+            <ul class="folders list-unstyled">
+              <li>
+                <a href="#">
+                  <i class="fa fa-folder"></i> April meeting
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-folder"></i> Application presentation
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-folder"></i> Staff profile pictures
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-folder"></i> Trip to Yosemite
+                </a>
+              </li>
+            </ul>
+            <div class="v-spacing-xs"></div>
+            <a class="btn btn-block btn-success"> <i class="fa fa-plus"> </i> Upload</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8 tab-content no-bg no-border">
+      <div class="tab-pane active documents documents-panel">
+        <div class="document success">
+          <div class="document-body">
+            <i class="fa fa-file-excel-o text-success"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document">
+          <div class="document-body">
+            <i class="fa fa-file-excel-o text-success"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document info">
+          <div class="document-body">
+            <i class="fa fa-file-word-o text-info"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document">
+          <div class="document-body">
+            <i class="fa fa-file-word-o text-info"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document warning">
+          <div class="document-body">
+            <i class="fa fa-file-powerpoint-o text-warning"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document">
+          <div class="document-body">
+            <i class="fa fa-file-powerpoint-o text-warning"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document danger">
+          <div class="document-body">
+            <i class="fa fa-file-pdf-o text-danger"></i>
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+        <div class="document">
+          <div class="document-body">
+            <i class="fa fa-file-pdf-o text-danger"></i>
+          </div>
+          <div class="document-footer">
+            <span class="document-name"> PDF file 2016 </span>
+            <span class="document-description"> 4.4 MB </span>
+          </div>
+        </div>
+        <div class="document dark">
+          <div class="document-body">
+            <i class="fa fa-file-video-o text-dark"></i>
+          </div>
+          <div class="document-footer">
+            <span class="document-name text-dark"> Video file 2017 </span>
+            <span class="document-description"> 18.2 MB </span>
+          </div>
+        </div>
+        <div class="document">
+          <div class="document-body">
+            <i class="fa fa-file-video-o text-dark"></i>
+          </div>
+          <div class="document-footer">
+            <span class="document-name"> Video file 2016 </span>
+            <span class="document-description"> 23.7 MB </span>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane documents images-panel">
+        <div class="document">
+          <div class="document-body">
+          </div>
+          <div class="document-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <h3></h3>
 
-        <%= link_to 'Edit', edit_user_registration_path(@user) %> |
-        <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
-        <h3> Disk free space:<%= number_to_human_size(show_disk_space,
-                                                      precision: 3,
-                                                      separator: ',')
-        %></h3>
+  <%= link_to 'Edit', edit_user_registration_path(@user) %> |
+  <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
+  <h3> Disk free space:<%= number_to_human_size(show_disk_space,
+                                                precision: 3,
+                                                separator: ',')
+  %></h3>
 
-        <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
+  <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
 
-        <%= render 'upload', user: @user %>
+  <%= render 'upload', user: @user %>
 
-        <% if @user.disk.present? %>
-          <% @user.disk.files.blobs.each do |file| %>
+  <% if @user.disk.present? %>
+    <% @user.disk.files.blobs.each do |file| %>
 
-            <div class="col-lg-3 col-md-4 col-sm-12">
-              <ul>
-                <div class="card">
-                  <div class="file">
+      <%= button_to 'delete', delete_files_disk_path(file),
+                    method: :delete,
+                    data: { confirm: "delete file #{file.filename} from disk?" },
+                    class: "button btn btn-icon btn-danger fa fa-trash" %>
+      <p class="m-b-5 text-muted"><%= file_name_without_ext(file) %></p>
+      <small><%= number_to_human_size(file.byte_size) %>
+        <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
+    <% end %>
+  <% end %>
 
-                    <a href="javascript:void(0);">
-                      <div class="hover">
-
-
-
-                            <%= button_to 'delete', delete_files_disk_path(file),
-                                          method: :delete,
-                                          data: { confirm: "delete file #{file.filename} from disk?" },
-                                          class: "button btn btn-icon btn-danger fa fa-trash" %>
-<!--                        <button type="">-->
-<!--                          <i class="">-->
-<!--                          </i>-->
-<!--                        </button>-->
-                      </div>
-                      <div class="icon">
-                        <i class="fa fa-file text-info"></i>
-                      </div>
-                      <div class="file-name">
-                        <p class="m-b-5 text-muted"><%= file_name_without_ext(file) %></p>
-                        <small><%= number_to_human_size(file.byte_size) %>
-                          <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </ul>
-            </div>
-          <% end %>
-        <% end %>
-</div>
-</div>
 <% else %>
   <%= render 'form', user: @user %>
 <% end %>

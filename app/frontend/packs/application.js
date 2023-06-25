@@ -7,8 +7,11 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 
-import "../styles/app.scss"
 import "bootstrap/dist/js/bootstrap"
+
+import "../styles/app.scss"
+
+import "../styles/app.css"
 
 const images = require.context("../images", true)
 
