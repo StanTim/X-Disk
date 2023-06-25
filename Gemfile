@@ -8,6 +8,8 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'webpacker', '~> 5.x'
 
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.8'
+
 gem 'active_storage_validations', '~> 1.0', '>= 1.0.4'
 gem 'devise'
 
