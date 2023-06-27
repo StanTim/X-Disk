@@ -21,12 +21,15 @@
             <ul class="folders list-unstyled">
               <li>
                 <a href="#">
-                  <i class="fa fa-folder"></i> Web projects
+                  <i class="fa fa-folder"></i> Disk free space:
+                  <%= number_to_human_size(show_disk_space,
+                                           precision: 3,
+                                           separator: ',') %>
                 </a>
               </li>
             </ul>
             <div class="v-spacing-xs"></div>
-            <a class="btn btn-block btn-success"> <i class="fa fa-plus"> </i> Upload</a>
+            <%= render 'upload', user: @user %>
           </div>
           <div class="tab-pane images-panel">
             <h4 class="no-margin-top"> Folders</h4>
@@ -58,121 +61,41 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-8 tab-content no-bg no-border">
-      <div class="tab-pane active documents documents-panel">
-        <div class="document success">
-          <div class="document-body">
-            <i class="fa fa-file-excel-o text-success"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document">
-          <div class="document-body">
-            <i class="fa fa-file-excel-o text-success"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document info">
-          <div class="document-body">
-            <i class="fa fa-file-word-o text-info"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document">
-          <div class="document-body">
-            <i class="fa fa-file-word-o text-info"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document warning">
-          <div class="document-body">
-            <i class="fa fa-file-powerpoint-o text-warning"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document">
-          <div class="document-body">
-            <i class="fa fa-file-powerpoint-o text-warning"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document danger">
-          <div class="document-body">
-            <i class="fa fa-file-pdf-o text-danger"></i>
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-        <div class="document">
-          <div class="document-body">
-            <i class="fa fa-file-pdf-o text-danger"></i>
-          </div>
-          <div class="document-footer">
-            <span class="document-name"> PDF file 2016 </span>
-            <span class="document-description"> 4.4 MB </span>
-          </div>
-        </div>
-        <div class="document dark">
-          <div class="document-body">
-            <i class="fa fa-file-video-o text-dark"></i>
-          </div>
-          <div class="document-footer">
-            <span class="document-name text-dark"> Video file 2017 </span>
-            <span class="document-description"> 18.2 MB </span>
-          </div>
-        </div>
-        <div class="document">
-          <div class="document-body">
-            <i class="fa fa-file-video-o text-dark"></i>
-          </div>
-          <div class="document-footer">
-            <span class="document-name"> Video file 2016 </span>
-            <span class="document-description"> 23.7 MB </span>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane documents images-panel">
-        <div class="document">
-          <div class="document-body">
-          </div>
-          <div class="document-footer">
-          </div>
-        </div>
-      </div>
+    <% if @user.disk.present? %>
+      <div class="col-sm-8 tab-content no-bg no-border">
+        <div class="tab-pane active documents documents-panel">
+          <% @user.disk.files.blobs.each do |file| %>
+            <div class="document">
+              <div class="document-body">
+                <%= button_to 'delete', delete_files_disk_path(file),
+                              method: :delete,
+                              data: { confirm: "delete file #{file.filename} from disk?" },
+                              class: 'button btn btn-icon btn-danger fa fa-trash' %>
+                <i class=""><%= file_name_without_ext(file) %></i>
+                <small><%= number_to_human_size(file.byte_size) %>
+
+              </div>
+              <div class="document-footer">
+                <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
+              </div>
+            </div>
+          <% end %>
+    <% end %>
     </div>
+    </div>
+  </div>
+  </div>
   </div>
   </div>
   <h3></h3>
 
   <%= link_to 'Edit', edit_user_registration_path(@user) %> |
   <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
-  <h3> Disk free space:<%= number_to_human_size(show_disk_space,
-                                                precision: 3,
-                                                separator: ',')
-  %></h3>
+
 
   <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
 
-  <%= render 'upload', user: @user %>
 
-  <% if @user.disk.present? %>
-    <% @user.disk.files.blobs.each do |file| %>
-
-      <%= button_to 'delete', delete_files_disk_path(file),
-                    method: :delete,
-                    data: { confirm: "delete file #{file.filename} from disk?" },
-                    class: "button btn btn-icon btn-danger fa fa-trash" %>
-      <p class="m-b-5 text-muted"><%= file_name_without_ext(file) %></p>
-      <small><%= number_to_human_size(file.byte_size) %>
-        <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
-    <% end %>
-  <% end %>
 
 <% else %>
   <%= render 'form', user: @user %>

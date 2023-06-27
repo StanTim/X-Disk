@@ -5,7 +5,6 @@
     <%= form_for @disk, url: upload_files_disk_path(@disk) do |f| %>
     </div>
 
-
     <div class="field">
       <ul>
         <%= f.label :files %><br/>
@@ -17,10 +16,11 @@
                           application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         %>
         <div class='actions'>
-
-          <%= f.submit 'upload',
+          <%= f.submit '+ upload',
                        method: :patch,
-                       title: 'upload files' %><br/>
+                       title: 'upload files',
+                       class: 'btn btn-block btn-success fa fa-plus'
+          %><br/>
         </div>
       </ul>
     </div>
