@@ -7,97 +7,68 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-dark-outline tabs-panel">
-        <div class="panel-heading">
-          <ul class="nav nav-tabs pull-left type-document">
-            </a></li>
-          </ul>
+        <div class="panel-heading"><h4 class="no-margin-top"> <%= @user.user_name %></h4>
+          <div class="nav nav-tabs pull-left type-document">
+            <%= link_to 'Edit', edit_user_registration_path(@user) %>
+            <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
+
+          </div>
           <div class="clear"></div>
         </div>
         <div class="panel-body tab-content">
           <div class="tab-pane active documents-panel">
-            <div class="clear"></div>
-            <div class="v-spacing-xs"></div>
-            <h4 class="no-margin-top"> <%= @user.user_name %></h4>
+            <div class="clear">
+              <div class="v-spacing-xs">
+
+              </div>
+            </div>
             <ul class="folders list-unstyled">
               <li>
-                <a href="#">
-                  <i class="fa fa-folder"></i> Disk free space:
-                  <%= number_to_human_size(show_disk_space,
-                                           precision: 3,
-                                           separator: ',') %>
-                </a>
+                <i class="fa fa-folder"></i> Files quantity: <%= @user.disk.files.all.count if @user.disk.present? %>
+              </li>
+              <li><i class="fa fa-folder"></i> Disk free space:
+                <%= number_to_human_size(show_disk_space,
+                                         precision: 3,
+                                         separator: ',') %>
               </li>
             </ul>
-            <div class="v-spacing-xs"></div>
-            <%= render 'upload', user: @user %>
-          </div>
-          <div class="tab-pane images-panel">
-            <h4 class="no-margin-top"> Folders</h4>
-            <ul class="folders list-unstyled">
-              <li>
-                <a href="#">
-                  <i class="fa fa-folder"></i> April meeting
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="fa fa-folder"></i> Application presentation
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="fa fa-folder"></i> Staff profile pictures
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="fa fa-folder"></i> Trip to Yosemite
-                </a>
-              </li>
-            </ul>
-            <div class="v-spacing-xs"></div>
-            <a class="btn btn-block btn-success"> <i class="fa fa-plus"> </i> Upload</a>
+            <div class="v-spacing-xs">
+              <%= render 'upload', user: @user %></div>
           </div>
         </div>
       </div>
     </div>
-    <% if @user.disk.present? %>
-      <div class="col-sm-8 tab-content no-bg no-border">
-        <div class="tab-pane active documents documents-panel">
+    <div class="col-sm-8 tab-content no-bg no-border">
+      <% if @user.disk.present? %>
+        <div class="row">
           <% @user.disk.files.blobs.each do |file| %>
-            <div class="document">
-              <div class="document-body">
-                <%= button_to 'delete', delete_files_disk_path(file),
-                              method: :delete,
-                              data: { confirm: "delete file #{file.filename} from disk?" },
-                              class: 'button btn btn-icon btn-danger fa fa-trash' %>
-                <i class=""><%= file_name_without_ext(file) %></i>
-                <small><%= number_to_human_size(file.byte_size) %>
+            <div class="col-lg-3 col-xl-2">
+              <a href="" class="file-close"><%= button_to delete_files_disk_path(file),
+                                                          method: :delete,
+                                                          data: { confirm: "delete file #{file.filename} from disk?" },
+                                                          class: 'button btn btn-icon btn-danger' do %>
+                  <!--            <i class="fa fa-times-circle"></i></a>-->
+                  <i class='fa fa-trash'></i>
+                <% end %>
+                <div class="file-img-box">
+                  <img src="https://coderthemes.com/highdmin/layouts/assets/images/file_icons/zip.svg" alt="icon"></div>
+                <a href="#" class="file-download"><i class="fa fa-download"></i></a>
+                <div class="file-man-title">
+                  <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
+                  <p class="mb-0">
+                    <small><%= number_to_human_size(file.byte_size) %> <%= file.created_at.strftime("%d %b. %Y") %></small>
+                  </p>
 
-              </div>
-              <div class="document-footer">
-                <span class="date text-muted"><%= file.created_at.strftime("%d %b. %Y") %></span></small>
-              </div>
+                </div>
             </div>
           <% end %>
-    <% end %>
+          <i class=""><%#= image_tag Icon.for_filename(file.filename) %></i>
+        </div>
+      <% end %>
     </div>
-    </div>
   </div>
   </div>
-  </div>
-  </div>
-  <h3></h3>
-
-  <%= link_to 'Edit', edit_user_registration_path(@user) %> |
-  <%= button_to 'sign_out', destroy_user_session_path, method: :delete %>
-
-
-  <h3> Files quantity:<%= @user.disk.files.all.count if @user.disk.present? %></h3>
-
-
 
 <% else %>
   <%= render 'form', user: @user %>
 <% end %>
-</div>
