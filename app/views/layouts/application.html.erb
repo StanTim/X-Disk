@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= favicon_pack_tag 'media/images/favicon.ico', rel: 'apple-touch-icon', type: 'ico' %>
+    <%= favicon_link_tag asset_pack_path('media/images/favicon.ico'), rel: 'apple-touch-icon', type: 'image/x-icon' %>
     <%= stylesheet_pack_tag 'app', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>

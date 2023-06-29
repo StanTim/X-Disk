@@ -46,27 +46,26 @@
               <a href="" class="file-close"><%= button_to delete_files_disk_path(file),
                                                           method: :delete,
                                                           data: { confirm: "delete file #{file.filename} from disk?" },
-                                                          class: 'button btn btn-icon btn-danger' do %>
-                  <!--            <i class="fa fa-times-circle"></i></a>-->
+                                                          class: 'button btn btn-icon btn-danger' do %></a>
+                  <!--            <i class="fa fa-times-circle"></i>-->
                   <i class='fa fa-trash'></i>
                 <% end %>
                 <div class="file-img-box">
-                  <img src="https://coderthemes.com/highdmin/layouts/assets/images/file_icons/zip.svg" alt="icon"></div>
-                <a href="#" class="file-download"><i class="fa fa-download"></i></a>
-                <div class="file-man-title">
-                  <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
-                  <p class="mb-0">
-                    <small><%= number_to_human_size(file.byte_size) %> <%= file.created_at.strftime("%d %b. %Y") %></small>
-                  </p>
-
+                  <%= image_tag asset_pack_path('media/images/xls.svg') if file.content_type %>
                 </div>
+            <a href="#" class="file-download"><i class="fa fa-download"></i></a>
+            <div class="file-man-title">
+              <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
+              <p class="mb-0">
+                <small><%= number_to_human_size(file.byte_size) %> <%= file.created_at.strftime("%d %b. %Y") %></small>
+              </p>
+
+            </div>
             </div>
           <% end %>
-          <i class=""><%#= image_tag Icon.for_filename(file.filename) %></i>
-        </div>
+          </div>
       <% end %>
-    </div>
-  </div>
+      </div>
   </div>
 
 <% else %>
