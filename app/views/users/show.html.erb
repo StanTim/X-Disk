@@ -47,11 +47,10 @@
                                                           method: :delete,
                                                           data: { confirm: "delete file #{file.filename} from disk?" },
                                                           class: 'button btn btn-icon btn-danger' do %></a>
-                  <!--            <i class="fa fa-times-circle"></i>-->
                   <i class='fa fa-trash'></i>
                 <% end %>
                 <div class="file-img-box">
-                  <%= image_tag asset_pack_path('media/images/xls.svg') if file.content_type %>
+                  <%= image_by_file_type(file.content_type) %>
                 </div>
             <a href="#" class="file-download"><i class="fa fa-download"></i></a>
             <div class="file-man-title">
