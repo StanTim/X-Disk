@@ -9,9 +9,7 @@
         <%= f.file_field :files,
                          placeholder: 'Upload files',
                          multiple: true,
-                         accept: 'application/zip,
-                         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-                          application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                         accept: "#{Disk::PERMITTED_EXTENTIONS.join(', ')}"
         %>
         <div class='actions'>
           <%= f.submit '+ upload',
