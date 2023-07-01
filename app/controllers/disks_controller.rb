@@ -14,15 +14,6 @@ class DisksController < ApplicationController
     end
   end
 
-  def delete_files
-
-    if @disk.files.blobs.destroy(params[:id])
-      redirect_to @user, notice: 'file was successfully deleted.'
-    else
-      redirect_to @user, notice: @disk.errors.messages
-    end
-  end
-
   private
 
   def set_current_user

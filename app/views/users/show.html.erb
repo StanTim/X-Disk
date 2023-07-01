@@ -51,32 +51,32 @@
               <div class="row">
                 <% @user.disk.files.blobs.each do |file| %>
                   <div class="col-lg-3 col-xl-2">
-                    <a href="" class="file-close">
+                    <a class="file-close">
                       <%= button_to delete_files_disk_path(file),
                                     method: :delete,
                                     data: { confirm: "delete file #{file.filename} from disk?" },
                                     class: 'button btn btn-icon btn-danger file-close' do %>
                         </a>
-<!--                        class="file-close"><i class="fa fa-times-circle"></i>-->
-<!--                        class: 'button btn btn-icon btn-danger'-->
-
                         <i class='fa fa-trash'></i>
                       <% end %>
                       <div class="file-img-box">
                         <%= image_by_file_type(file.content_type) %>
                       </div>
-                      <a href="#" class="file-download"><i class="fa fa-download"></i></a>
-                      <div class="file-man-title">
-                        <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
-                        <p class="mb-0">
-                          <small>
-                            <%= number_to_human_size(file.byte_size) %>
-                            <%= file.created_at.strftime("%d %b. %Y") %>
-                          </small>
-                        </p>
-
-                      </div>
-                      </div>
+                      <a class="file-download">
+                        <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                          <i class="fa fa-download"></i>
+                          </a>
+                        <% end %>
+                        <div class="file-man-title">
+                          <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
+                          <p class="mb-0">
+                            <small>
+                              <%= number_to_human_size(file.byte_size) %>
+                              <%= file.created_at.strftime("%d %b. %Y") %>
+                            </small>
+                          </p>
+                        </div>
+                        </div>
                 <% end %>
               </div>
       <% end %>
