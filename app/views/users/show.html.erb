@@ -5,7 +5,7 @@
 
 <% if user_signed_in? %>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="panel panel-dark-outline tabs-panel">
         <div class="panel-heading"><h4 class="no-margin-top"> <%= @user.user_name %></h4>
           <div class="nav nav-tabs pull-left type-document">
@@ -41,30 +41,49 @@
     <div class="col-sm-8 tab-content no-bg no-border">
       <% if @user.disk.present? %>
         <div class="row">
-          <% @user.disk.files.blobs.each do |file| %>
-            <div class="col-lg-3 col-xl-2">
-              <a href="" class="file-close"><%= button_to delete_files_disk_path(file),
-                                                          method: :delete,
-                                                          data: { confirm: "delete file #{file.filename} from disk?" },
-                                                          class: 'button btn btn-icon btn-danger' do %></a>
-                  <i class='fa fa-trash'></i>
-                <% end %>
-                <div class="file-img-box">
-                  <%= image_by_file_type(file.content_type) %>
+          <div class="col-12">
+            <div class="card-box">
+              <div class="row">
+                <div class="col-lg-6 col-xl-6">
+                  <h4 class="header-title m-b-30">My Files</h4>
                 </div>
-            <a href="#" class="file-download"><i class="fa fa-download"></i></a>
-            <div class="file-man-title">
-              <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
-              <p class="mb-0">
-                <small><%= number_to_human_size(file.byte_size) %> <%= file.created_at.strftime("%d %b. %Y") %></small>
-              </p>
+              </div>
+              <div class="row">
+                <% @user.disk.files.blobs.each do |file| %>
+                  <div class="col-lg-3 col-xl-2">
+                    <a href="" class="file-close">
+                      <%= button_to delete_files_disk_path(file),
+                                    method: :delete,
+                                    data: { confirm: "delete file #{file.filename} from disk?" },
+                                    class: 'button btn btn-icon btn-danger file-close' do %>
+                        </a>
+<!--                        class="file-close"><i class="fa fa-times-circle"></i>-->
+<!--                        class: 'button btn btn-icon btn-danger'-->
 
-            </div>
-            </div>
-          <% end %>
-          </div>
+                        <i class='fa fa-trash'></i>
+                      <% end %>
+                      <div class="file-img-box">
+                        <%= image_by_file_type(file.content_type) %>
+                      </div>
+                      <a href="#" class="file-download"><i class="fa fa-download"></i></a>
+                      <div class="file-man-title">
+                        <h5 class="mb-0 text-overflow"><%= file_name_without_ext(file) %></h5>
+                        <p class="mb-0">
+                          <small>
+                            <%= number_to_human_size(file.byte_size) %>
+                            <%= file.created_at.strftime("%d %b. %Y") %>
+                          </small>
+                        </p>
+
+                      </div>
+                      </div>
+                <% end %>
+              </div>
       <% end %>
       </div>
+      </div>
+      </div>
+    </div>
   </div>
 
 <% else %>
