@@ -21,6 +21,11 @@ MS Word and *.zip archives.
 
 `   PostgreSQL 14 database`
 
+* Clone program repo
+
+  `git clone git@github.com:StanTim/X-Disk.git`
+
+
 * Database creation
 
 `   rails db:create`
@@ -28,6 +33,10 @@ MS Word and *.zip archives.
 * Database initialization 
 
 `   rails db:migrate`
+
+* Database schema
+
+  ![](https://github.com/StanTim/X-Disk/blob/main/db/X-disk.png?raw=true)
 
 * Developer:
 
