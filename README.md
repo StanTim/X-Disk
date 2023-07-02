@@ -1,24 +1,36 @@
-# README
+# X-Disk
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Simple app to manage your files "X-Disk".
+After registration you can upload,
+collect and delete your documents like as MS Excel,
+MS Word and *.zip archives.
 
 * Ruby version
 
-* System dependencies
+    `ruby '3.2.0'`
+
+* Rails
+
+    `6.1.7.3`
+
+* System
+
+`   Ubuntu linux 18 `
 
 * Configuration
 
+`   PostgreSQL 14 database`
+
 * Database creation
 
-* Database initialization
+`   rails db:create`
 
-* How to run the test suite
+* Database initialization 
 
-* Services (job queues, cache servers, search engines, etc.)
+`   rails db:migrate`
 
-* Deployment instructions
+* Developer:
 
-* ...
+  Stanislav A. Timanov
+
+  [1694569@mail.ru](1694569@mail.ru)
