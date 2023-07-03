@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    build: .
+      command: bundle exec rails s -p 3000 -b '0.0.0.0'
+      ports:
+        - "3000:3000"
+      volumes:
+        - .:/app
+      restart: unless-stopped
+      depends_on:
+        - db
+        - webpacker
+
+
+    webpacker:
+      build: .
+      command: ./bin/webpack-dev-server --inline true
+      ports:
+        - "3035:3035"
+      volumes:
+        - .:/app
+      restart: unless-stopped
+
+    db:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: password
