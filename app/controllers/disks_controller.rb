@@ -15,12 +15,8 @@ class DisksController < ApplicationController
   end
 
   def delete_files
-
-    if @disk.files.blobs.destroy(params[:id])
-      redirect_to @user, notice: 'file was successfully deleted.'
-    else
-      redirect_to @user, notice: @disk.errors.messages
-    end
+    ActiveStorage::Attachment.find(params[:id]).purge
+    redirect_to @user, notice: 'file was successfully deleted.'
   end
 
   private
