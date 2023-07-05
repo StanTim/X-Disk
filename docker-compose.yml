@@ -7,7 +7,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - .:/app
+            - .:/X-Disk
         restart: unless-stopped
         depends_on:
             - db
@@ -16,11 +16,11 @@ services:
 
     webpacker:
         build: .
-        command: ./bin/webpack-dev-server --inline true
+        command: ./bin/webpack --inline true
         ports:
             - "3035:3035"
         volumes:
-            - .:/app
+            - .:/X-Disk
         restart: unless-stopped
 
     db:
