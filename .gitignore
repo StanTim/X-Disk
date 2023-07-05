@@ -44,8 +44,6 @@ yarn-debug.log*
 .idea
 .vscode
 
-package.json
-
 .rvmrc
 
 .rspec
