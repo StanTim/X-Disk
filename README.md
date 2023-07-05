@@ -15,24 +15,33 @@ MS Word and *.zip archives.
 
 * System
 
-`   Ubuntu linux 18 `
+  `Ubuntu linux 20.04`
 
 * Configuration
 
-`   PostgreSQL 14 database`
+  `PostgreSQL 14 database`
 
 * Clone program repo
 
   `git clone git@github.com:StanTim/X-Disk.git`
 
+* Run
+
+  `cd X-Disk`
+  
+  `nvm use 16`
 
 * Database creation
 
-`   rails db:create`
+  `rails db:create`
 
 * Database initialization 
 
-`   rails db:migrate`
+  `rails db:migrate`
+
+* Start app
+
+    `rails s`
 
 * Database schema
 
