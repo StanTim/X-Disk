@@ -33,7 +33,7 @@ class Disk < ApplicationRecord
   def enough_disk_space
     if files.attached?
       if files.blobs.last.byte_size > free_disk_space
-        files.blobs.last.destroy
+        ActiveStorage::Attachment.find(files.blobs.last.id).purge
         errors.add(:files, "Disk limit exceeded #{ActionController::Base.helpers.number_to_human_size(DISK_LIMIT)}")
       end
     end
