@@ -9,13 +9,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+  
     if @user.save
+      @disk = Disk.create(user_id: @user.id)
       redirect_to @user, notice: 'User was successfully created.'
     else
       render 'devise/registration/new'
     end
-  end
+  endcreate
 
   def update
     if @user.update(user_params)
