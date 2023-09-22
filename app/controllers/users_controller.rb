@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     else
       render 'devise/registration/new'
     end
-  endcreate
+  end
 
   def update
     if @user.update(user_params)
