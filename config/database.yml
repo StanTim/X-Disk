@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: x_disk_production
-  username: x_disk
-  password: <%= ENV['X_DISK_DATABASE_PASSWORD'] %>
+  url: <%= ENV.fetch("DATABASE_URL")%>
+#  database: x_disk_production
+#  username: x_disk
+#  password: <%#= ENV['X_DISK_DATABASE_PASSWORD'] %>
