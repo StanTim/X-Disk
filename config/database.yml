@@ -80,8 +80,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  url: <%= ENV.fetch("DATABASE_URL")%>
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL']%>
 #  database: x_disk_production
 #  username: x_disk
 #  password: <%#= ENV['X_DISK_DATABASE_PASSWORD'] %>
