@@ -52,5 +52,5 @@ yarn-debug.log*
 
 /db/*.plpgsql
 /public/system
-/coverage/
+/coverage///
 /spec/tmp
