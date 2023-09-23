@@ -8,6 +8,7 @@ services:
       runtime: ruby
       buildCommand: "./bin/render-build.sh"
       startCommand: "bundle exec rails s"
+                    "npm install"
       envVars:
           - key: DATABASE_URL
             fromDatabase:
