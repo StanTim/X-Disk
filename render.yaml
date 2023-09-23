@@ -7,7 +7,7 @@ services:
       name: rails
       env: node
       runtime: ruby
-      buildCommand: "./bin/render-build.sh"
+      buildCommand: "./bin/render-build.sh" && "yarn add -D"
       startCommand: "bundle exec rails s"
       envVars:
           - key: DATABASE_URL
