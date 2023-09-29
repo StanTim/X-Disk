@@ -6,7 +6,7 @@ ruby '3.2.0'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.3'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.4.1'
 
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.8'
 
