@@ -7,7 +7,7 @@ services:
       name: rails
       env: node
       runtime: ruby
-      buildCommand: "./bin/render-build.sh" && "yarn add --dev webpack-cli"
+      buildCommand: "yarn add -D" && "./bin/render-build.sh"
       startCommand: "bundle exec rails s"
       envVars:
           - key: DATABASE_URL
