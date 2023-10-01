@@ -8,8 +8,7 @@ services:
       env: node
       runtime: ruby
       buildCommand: "./bin/render-build.sh"
-      startCommand: "bundle exec rails s" && "bin/webpack"
-      envVars:
+      startCommand: "bundle exec rails s"
           - key: DATABASE_URL
             fromDatabase:
                 name: x-disk
